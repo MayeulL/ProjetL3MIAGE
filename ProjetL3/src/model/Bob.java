@@ -2,7 +2,7 @@ package model;
 
 import java.util.List;
 
-public class Bob  extends Personnage{
+public class Bob extends Personnage {
 
     private int Munitons;
     private List<Objets> Inventaire;
@@ -13,24 +13,66 @@ public class Bob  extends Personnage{
         Munitons = mun;
     }
 
-    public void Inventaire(){
+    // TO DO
+    public void Inventaire() {
         // ouvre l'inventaire
     }
 
-    public void TirBlaster(){
-        // s'il lui reste des munitions
-        // Inflige petits dégats et brule pendant 2 tours
+    public void TirBlaster(Personnage Ennemi) {
+        // s'il n'est pas assomé
+        if (!isAssome()) {
+            // s'il lui reste des munitions
+            if (getMunitons() > 0) {
+                setMunitons(getMunitons() - 1);
+                // Inflige petits dégats et brule pendant 2 tours
+                Ennemi.PerdrePdv(2);
+                Ennemi.setBrule(2);
+            }
+        } else if(isHyponotise()){
+            PerdrePdv(1);
+            setHyponotise(false);
+            // Info bulle "il se blesse dans sa confusion"
+        } else {
+            setAssome(false);
+            // info bulle Bob est asomé
+        }
+
     }
 
-    public void CoupDePoing(){
-        // Inflige de bons dégats
+    public void CoupDePoing(Personnage Ennemi) {
+        // s'il n'est pas assomé
+        if (!isAssome()) {
+            // Inflige de bons dégats
+            Ennemi.PerdrePdv(2);
+        }
+        else if(isHyponotise()){
+            PerdrePdv(1);
+            setHyponotise(false);
+            // Info bulle "il se blesse dans sa confusion"
+        }
+        else {
+            setAssome(false);
+            // info bulle Bob est asomé
+        }
     }
 
-    public void Soins(){
-        // soigne Bob
+    public void Soins() {
+        // s'il n'est pas assomé
+        if (!isAssome()) {
+            // soigne Bob
+            GagnerPdv(3);
+        }
+        else if(isHyponotise()){
+            PerdrePdv(1);
+            // Info bulle "il se blesse dans sa confusion"
+        }
+        else {
+        setAssome(false);
+        // info bulle Bob est asomé
+    }
     }
 
-    public boolean HasObject(Objets obj){
+    public boolean HasObject(Objets obj) {
         if (Inventaire.contains(obj))
             return true;
         else

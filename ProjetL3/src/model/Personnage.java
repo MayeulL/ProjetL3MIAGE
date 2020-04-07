@@ -6,6 +6,7 @@ public class Personnage {
     private int PointsDeVie;
     private int Brule;
     private boolean Vivant = true;
+    private boolean Hyponotise;
     private int PosX;
     private int PosY;
 
@@ -44,7 +45,11 @@ public class Personnage {
 
     public void Bruler(){
         // si le compteur Brule > 0
-        // inflige de légers dégats
+        if (Brule > 0){
+            Brule--;
+            // inflige de légers dégats
+            this.PerdrePdv(1);
+        }
     }
 
     public int getPointsDeVie() {
@@ -77,5 +82,13 @@ public class Personnage {
 
     public void setPosY(int posY) {
         PosY = posY;
+    }
+
+    public boolean isHyponotise() {
+        return Hyponotise;
+    }
+
+    public void setHyponotise(boolean hyponotise) {
+        Hyponotise = hyponotise;
     }
 }

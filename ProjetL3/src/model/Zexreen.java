@@ -8,9 +8,11 @@ public class Zexreen  extends Personnage{
 
     public void YeuxLaser(){
         // inflige des dégats
+        this.PerdrePdv(2);
     }
 
     public void Hypnose(){
         // rend Bob confus, la porchaine attaque est redirigée vers Bob
+        this.setHyponotise(true);
     }
 }
